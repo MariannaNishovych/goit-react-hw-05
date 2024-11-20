@@ -4,6 +4,7 @@ import { fetchTrendingMovies } from '../../services/api';
 import MovieList from '../../components/MovieList/MovieList';
 
 
+
 const HomePage = () => {
 
     const[trendMovies, setTrendMovies] = useState([]);

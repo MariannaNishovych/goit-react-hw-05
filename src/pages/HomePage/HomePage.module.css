@@ -1,1 +1,7 @@
-.title{}
+.title{
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 30px;
+    color: rgb(61, 12, 107);
+    margin-left: 20px;
+}

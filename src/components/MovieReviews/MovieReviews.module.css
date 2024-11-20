@@ -1,0 +1,32 @@
+.reviewsList {
+display: flex;
+flex-direction: column;
+gap: 20px;
+
+}
+
+.reviewsItem{
+display: flex;
+flex-direction: column;
+gap: 8px;
+border: solid 2px #23103d;;
+padding: 10px;
+border-radius: 8px;
+}
+
+.reviewsAuthor{
+    font-size: 20px;
+    line-height: 1.2;
+    color: #23103d;
+    font-weight: bold;
+    margin-bottom: 15px;
+
+}
+
+.reviewsText{
+font-size: 18px;
+}
+
+.noReviews{
+
+}

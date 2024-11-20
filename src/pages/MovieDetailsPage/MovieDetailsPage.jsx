@@ -2,6 +2,7 @@ import { Link, Outlet, useParams } from 'react-router-dom'
 import css from './MovieDetailsPage.module.css'
 import { useEffect, useState } from 'react';
 import { fetchMovieDetails } from '../../services/api';
+import { BiSolidMoviePlay } from "react-icons/bi";
 
 const MovieDetailsPage = () => {
     const {movieId} = useParams();
@@ -61,8 +62,8 @@ if(!movieDetails) {
 <div className={css.detailInfoContainer}>
 <h2 className={css.detailSubTitle}>Aditional information</h2>
   <nav className={css.detailNav}>
-    <Link to='cast'>Cast</Link>
-    <Link to='reviews'>Reviews</Link>
+    <Link to='cast'><BiSolidMoviePlay />Cast</Link>
+    <Link to='reviews'><BiSolidMoviePlay />Reviews</Link>
 </nav>
    <Outlet />
 </div>
