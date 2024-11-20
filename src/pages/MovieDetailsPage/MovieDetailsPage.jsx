@@ -1,12 +1,17 @@
-import { Link, Outlet, useParams } from 'react-router-dom'
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom'
 import css from './MovieDetailsPage.module.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { fetchMovieDetails } from '../../services/api';
 import { BiSolidMoviePlay } from "react-icons/bi";
+import { RiArrowGoBackFill } from "react-icons/ri";
 
 const MovieDetailsPage = () => {
     const {movieId} = useParams();
     const[movieDetails, setMovieDetails] = useState(null);
+
+  const location = useLocation();
+  const backLinkRef = useRef(location.state?.from ?? "/movies");
+
     useEffect(() => {
         const getData = async() => {
             try {
@@ -26,7 +31,7 @@ if(!movieDetails) {
 }
   return (
     <>
-    <Link>Go back</Link>
+    <Link to={backLinkRef.current}> <RiArrowGoBackFill /> Go back</Link>
 
  {movieDetails !== null && (
         <div className={css.detailBox}>
