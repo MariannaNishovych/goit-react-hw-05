@@ -12,9 +12,14 @@ const options = {
 export const fetchTrendingMovies = async() => {
     const {data} = await axios.get('trending/movie/day', options);
     return data;
-}
+};
 
 export const fetchMovieDetails = async(movieId) => {
     const {data} = await axios.get(`movie/${movieId}`, options);
     return data;
-}
+};
+
+export const fetchMovieCast = async(movieId) => {
+    const {data} = await axios.get(`movie/${movieId}/credits`, options);
+    return data.cast;
+};

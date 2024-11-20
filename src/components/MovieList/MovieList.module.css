@@ -1,0 +1,14 @@
+.moviesList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: 15px;
+}
+
+.movieItem {
+    display: flex;
+    gap: 10px;
+    font-size: 25px;
+    line-height: 1.2;
+font-weight: bolt;
+}

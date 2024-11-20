@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, Outlet, useParams } from 'react-router-dom'
 import css from './MovieDetailsPage.module.css'
 import { useEffect, useState } from 'react';
 import { fetchMovieDetails } from '../../services/api';
@@ -24,29 +24,51 @@ if(!movieDetails) {
     return <h2>Loading....</h2>
 }
   return (
-    <div>
-        <Link>Go back</Link>
+    <>
+    <Link>Go back</Link>
 
-        <div>
-    <img
-    className={css.movieDetImage}
-    src={imgUrl + movieDetails.backdrop_path}
-    alt={`${movieDetails.title}`}
-    />
-    <h2>{movieDetails.title}</h2>
+ {movieDetails !== null && (
+        <div className={css.detailBox}>
+          <img
+            className={css.detailImg}
+            src={imgUrl + movieDetails.backdrop_path}
+            alt={movieDetails.title}
+          />
+          <div className={css.detailInfo}>
+            <h1 className={css.detailTitle}>
+              {movieDetails.title}{" "}
+              <span className={css.detailYear}>
+                ({movieDetails.release_date.split("-")[0]})
+              </span>
+            </h1>
+            <p className={css.detailScore}>
+              User Score:{" "}
+              <span className={css.detailUserScore}>
+                {Math.floor(parseFloat(movieDetails.vote_average) * 10)}
+              </span>
+              %
+            </p>
+            <h2 className={css.detailSubTitle}>Overview</h2>
+            <p className={css.detailDescr}>{movieDetails.overview}</p>
+            <h2 className={css.detailSubTitle}>Genres</h2>
+            <p className={css.detailDescr}>
+              {movieDetails?.genres?.map((genre) => genre.name).join(" ")}
+            </p>
+          </div>
         </div>
-        <div>
-            <h2>Aditional information</h2>
-            <nav>
-                <Link to='cast'>Cast</Link>
-                <Link to='reviews'>Reviews</Link>
-            </nav>
-        </div>
-        
-    </div>
- 
+)}
 
-  )
-}
+<div className={css.detailInfoContainer}>
+<h2 className={css.detailSubTitle}>Aditional information</h2>
+  <nav className={css.detailNav}>
+    <Link to='cast'>Cast</Link>
+    <Link to='reviews'>Reviews</Link>
+</nav>
+   <Outlet />
+</div>
+      
+ </>
+  );
+};
 
 export default MovieDetailsPage
