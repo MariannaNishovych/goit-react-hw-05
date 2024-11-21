@@ -2,20 +2,25 @@ import css from './MovieCast.module.css';
 import { fetchMovieCast } from '../../services/api';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Loader from '../Loader/Loader';
 
 const MovieCast = () => {
 
   const {movieId} = useParams();
   const [cast, setCast] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
 const getData = async() => {
+  setIsLoading(true);
   try {
     const response = await fetchMovieCast(movieId);
     setCast(response);
     
   } catch (error) {
     console.log(error);
+  } finally {
+    setIsLoading(false);
   }
 }
 getData();
@@ -26,6 +31,7 @@ getData();
 
   return (
     <ul className={css.castList}>
+      {isLoading && <Loader />}
       {cast !== null && 
       cast.map(({id, name, profile_path, character }) => {
         return (

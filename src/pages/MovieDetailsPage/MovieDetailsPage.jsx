@@ -4,36 +4,40 @@ import { useEffect, useState, useRef } from 'react';
 import { fetchMovieDetails } from '../../services/api';
 import { BiSolidMoviePlay } from "react-icons/bi";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import Loader from '../../components/Loader/Loader';
 
 const MovieDetailsPage = () => {
     const {movieId} = useParams();
     const[movieDetails, setMovieDetails] = useState(null);
+    const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
   const location = useLocation();
   const backLinkRef = useRef(location.state?.from ?? "/movies");
 
-    useEffect(() => {
-        const getData = async() => {
-            try {
-                const response = await fetchMovieDetails(movieId);
-                setMovieDetails(response);
-            } catch (error) {
-            console.log(error);
-            }
-        }
-        getData()
-    }, [movieId]);
+  useEffect(() => {  
+    const getData = async () => {  
+        setIsLoading(true);  
+        try {  
+            const response = await fetchMovieDetails(movieId);  
+            setMovieDetails(response);  
+        } catch (error) {  
+            setError(error.message);  
+        } finally {  
+            setIsLoading(false);
+        }  
+    };  
+    getData();  
+}, [movieId]); 
 
     const imgUrl = "https://image.tmdb.org/t/p/w500";
 
-if(!movieDetails) {
-    return <h2>Loading....</h2>
-}
   return (
     <>
+    {isLoading && <Loader />}
+    {error && <p className={css.error}>Please, try again later.</p>}
     <Link to={backLinkRef.current}> <RiArrowGoBackFill /> Go back</Link>
-
- {movieDetails !== null && (
+{movieDetails !== null && (
         <div className={css.detailBox}>
           <img
             className={css.detailImg}
@@ -70,11 +74,11 @@ if(!movieDetails) {
     <Link to='cast'><BiSolidMoviePlay />Cast</Link>
     <Link to='reviews'><BiSolidMoviePlay />Reviews</Link>
 </nav>
-   <Outlet />
+  <Outlet />
 </div>
       
- </>
+</>
   );
 };
 
-export default MovieDetailsPage
+export default MovieDetailsPage;

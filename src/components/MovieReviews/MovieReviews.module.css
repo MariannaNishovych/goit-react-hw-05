@@ -9,7 +9,7 @@ gap: 20px;
 display: flex;
 flex-direction: column;
 gap: 8px;
-border: solid 2px #23103d;;
+border: solid 2px #23103d;
 padding: 10px;
 border-radius: 8px;
 }
